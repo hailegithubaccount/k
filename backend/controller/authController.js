@@ -93,7 +93,9 @@ try {
     //send response
     return (
         res.status(200).json({
+            
             token,
+            role: user.role,
             status:'success',
             message:'user logged successfully'
         })
