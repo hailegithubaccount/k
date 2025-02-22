@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,27 +16,29 @@ const Login = () => {
         email,
         password,
       });
-
-      console.log(response);
-
+    
+      console.log("Login response:", response.data);
+    
       if (response.data && response.data.token) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("role", response.data.role);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
 
-        axios.defaults.headers["Authorization"] = `Bearer ${response.data.token}`;
-
+    
         if (response.data.role === "admin") {
           window.location.href = "/admin-dashboard";
-        } else if (response.data.role === "staff") {
+        } else if (response.data.role === "library-staff") {
           window.location.href = "/staff-dashboard";
         }
       } else {
         setError("User not found or incorrect credentials");
       }
     } catch (err) {
-      console.error(err);
-      setError(err.response ? err.response.data.message : "An error occurred, please try again.");
+      console.error("Login error:", err);
+      console.log("Error details:", err.response?.data);
+      setError(err.response?.data?.message || "An error occurred, please try again.");
     }
+    
   };
 
   return (
