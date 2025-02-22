@@ -1,17 +1,38 @@
 const express = require('express');
 const authController = require('../controller/authController');
-const { protect, isAdmin } = require('../middleware/auth');  // ✅ Import protect & isAdmin
+const { protect,checkRole, checkUserExists} = require('../middleware/auth');  // ✅ Import protect & isAdmin
 
 const router = express.Router();
 
 // Public routes
-router.post('/register', authController.register);
+
 router.post('/login', authController.login);
 
-// Admin-only route to register staff
-router.post("/admin/register-staff", protect, isAdmin, authController.registerLibraryStaff);
+
+
+
+// Admin dashboard route
+router.get('/admin/dashboard', protect, checkRole('admin'), checkUserExists, (req, res) => {
+    res.status(200).json({
+        status: 'success',
+        message: 'Welcome to the admin dashboard!',
+        user: res.locals.user
+    });
+});
+
+// User dashboard route
+router.get('/library-staff/dashboard', protect, checkRole('library-staff'), checkUserExists, (req, res) => {
+    res.status(200).json({
+        status: 'success',
+        message: 'Welcome to the user dashboard!',
+        user: res.locals.user
+    });
+});
+
+module.exports = router;
+
 
 // Get all users (only accessible by authenticated users)
-router.get('/', protect, authController.getAllUser);
+// router.get('/', protect, authController.getAllUser);
 
 module.exports = router;
