@@ -14,10 +14,12 @@ connectDB()
 
 const userRoutes = require('./routes/userRoute');
 const adminRoutes =require('./routes/adminRoute');
+const bookRoutes=require('./routes/bookRoute');
 
 // // Use the routes
 app.use('/api/user', userRoutes);
-app.use('/api/user',adminRoutes) // Registration route
+app.use('/api/user',adminRoutes);
+app.use("/api/user/books", bookRoutes); // Registration route
 
 // Start the server
 const PORT = process.env.PORT || 3000;
