@@ -21,7 +21,7 @@ router.get('/admin/dashboard', protect, checkRole('admin'), checkUserExists, (re
 });
 
 // User dashboard route
-router.get('/library-staff/dashboard', protect, checkRole('library-staff'), checkUserExists, (req, res) => {
+router.get('/library-staff', protect, checkRole('library-staff'), checkUserExists, (req, res) => {
     res.status(200).json({
         status: 'success',
         message: 'Welcome to the user dashboard!',
