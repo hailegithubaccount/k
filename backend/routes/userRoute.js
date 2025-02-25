@@ -12,7 +12,7 @@ router.post('/login', authController.login);
 
 
 // Admin dashboard route
-router.get('/admin/dashboard', protect, checkRole('admin'), checkUserExists, (req, res) => {
+router.get('/admin', protect, checkRole('admin'), checkUserExists, (req, res) => {
     res.status(200).json({
         status: 'success',
         message: 'Welcome to the admin dashboard!',

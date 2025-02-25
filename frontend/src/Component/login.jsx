@@ -34,8 +34,8 @@ const Login = () => {
 
                 // Redirect based on role
                 if (role === "admin") {
-                    console.log("Redirecting to /admin/dashboard"); // Debugging log
-                    navigate("/admin/dashboard");
+                    console.log("Redirecting to /admin"); // Debugging log
+                    navigate("/admin");
                 } else if (role === "library-staff") {
                     console.log("Redirecting to /library-staff/dashboard"); // Debugging log
                     navigate("/library-staff/dashboard");
